@@ -51,5 +51,11 @@ namespace Library.Controllers
         {
             //await bookServices.Delete(id);
         }
+
+        [Route("/Error")]
+        public ContentResult Error()
+        {
+            return Content("La aplicacion no está funcionando correctamente.");
+        }
     }
 }

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Library.Data;
@@ -12,7 +11,6 @@ using Library.Data.IRepositories;
 using System;
 using Library.Core.Services;
 using Library.Core.Interfaces;
-using Library.Data;
 
 namespace Library
 {
@@ -64,14 +62,10 @@ namespace Library
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
             }
 
             app.UseStaticFiles();
@@ -80,11 +74,11 @@ namespace Library
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=GettAll}");
+                    template: "{controller=Books}/{action=GettAll}");
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                    defaults: new { controller = "Books", action = "GetAll" });
             });
         }
     }
