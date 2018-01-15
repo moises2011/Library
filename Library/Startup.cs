@@ -28,10 +28,10 @@ namespace Library
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
             //Config context
             services.AddDbContext<LibraryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
-            services.AddMvc();
             //IoC
             CreateDependencyInjection(services);
             //Initialize Mapping
@@ -49,7 +49,7 @@ namespace Library
             builder.Populate(services);
 
             // use and configure Autofac
-            builder.RegisterType<LibraryContext>().As<IQueryableUnitOfWork>();
+            builder.RegisterType<LibraryContext>().As<IQueryableUnitOfWork>().WithParameter("Schema", Configuration.GetConnectionString("SchemaName"));
             builder.RegisterType<BookServices>().As<IBookServices>();
             builder.RegisterType<BookRepository>().As<IBookRepository>();
             // build the Autofac container

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Library.Data;
 using Library.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,9 +8,10 @@ namespace Library.Data
 {
     public class LibraryContext : DbContext, IQueryableUnitOfWork
     {
-
-        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
+        private readonly string Schema;
+        public LibraryContext(DbContextOptions<LibraryContext> options, string schema) : base(options)
         {
+            Schema = schema;
         }
 
         public DbSet<Entity> GetSet<Entity>() where Entity : EntityBase
@@ -21,7 +21,9 @@ namespace Library.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>().ToTable("Books");
+            modelBuilder.Entity<Book>().ToTable("Book");
+            modelBuilder.HasDefaultSchema(Schema);
+            base.OnModelCreating(modelBuilder);
         }
 
         public void Commit()
