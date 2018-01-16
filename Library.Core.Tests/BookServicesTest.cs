@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace Library.Core.Tests
 {
@@ -16,28 +16,75 @@ namespace Library.Core.Tests
     {
         private IBookRepository bookRepository;
         private IBookServices bookServices;
-       
+
+        private Book entity;
+        private Dtos.Book entityDto;
+        private List<Book> entities;
+        private List<Dtos.Book> entitiesDto;
 
         [TestInitialize]
         public void Initialize()
         {
+            MappingConfig.Initialize();
             bookRepository = Substitute.For<IBookRepository>();
             bookServices = new BookServices(bookRepository);
-            MappingConfig.Initialize();
+            entity = new Book { Name = "Book 1", Amount = 1, Price = 1 };
+            entityDto = Mapper.Map<Dtos.Book>(entity);
         } 
 
         [TestMethod]
         public void GetAllTest()
         {
             //Arrange
-            IEnumerable<Dtos.Book> books;
-            List<Book> booksWait = new List<Book>();
-            booksWait.Add(new Book { Name="Book 1"});
-            bookRepository.GetAll().Returns(booksWait);
+            entitiesDto = null;
+            List<Book> entitiesWait = new List<Book>();
+            entitiesWait.Add(entity);
+            bookRepository.GetAll().Returns(entitiesWait);
             //Act
-            books = bookServices.GetAll();
+            entitiesDto = bookServices.GetAll().ToList();
             //Assert
-            Assert.AreEqual(books.ToList().Count,booksWait.Count);
+            Assert.AreEqual(entitiesDto.ToList().Count,entitiesWait.Count);
         }
+
+        [TestMethod]
+        public async Task GetAllAsyncTest()
+        {
+            //Arrange
+            entitiesDto = null;
+            List<Book> entitiesWait = new List<Book>();
+            entitiesWait.Add(entity);
+            bookRepository.GetAllAsync().Returns(entitiesWait);
+            //Act
+            entitiesDto = (await bookServices.GetAllAsync()).ToList();
+            //Assert
+            Assert.AreEqual(entitiesDto.Count, entitiesWait.Count);
+        }
+
+        [TestMethod]
+        public void FindByIdTest()
+        {
+            //Arrange
+            Book entityWait = entity;
+            entityDto = null;
+            bookRepository.FindById(Arg.Any<long>()).Returns(entity);
+            //Act
+            entityDto = bookServices.FindById(1);
+            //Assert
+            Assert.AreEqual(entityDto.Id, entityWait.Id);
+        }
+
+        [TestMethod]
+        public async Task FindByIdAsyncTest()
+        {
+            //Arrange
+            Book entityWait = entity;
+            entityDto = null;
+            bookRepository.FindByIdAsync(Arg.Any<long>()).Returns(entity);
+            //Act
+            entityDto = await bookServices.FindByIdAsync(1);
+            //Assert
+            Assert.AreEqual(entityDto.Id, entityWait.Id);
+        }
+
     }
 }

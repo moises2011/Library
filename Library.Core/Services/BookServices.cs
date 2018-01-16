@@ -17,37 +17,32 @@ namespace Library.Core.Services
             this.repository = repository;
         }
 
-        public async Task Add(Book entity)
+        public async Task<IEnumerable<Book>> GetAllAsync()
         {
-            await repository.Add(Mapper.Map<Data.Entities.Book>(entity));
+            return from book in await repository.GetAllAsync()
+                   select Mapper.Map<Book>(book);
         }
-
-        public async Task Delete(Book entity)
-        {
-            await repository.Delete(Mapper.Map<Data.Entities.Book>(entity));
-        }
-
-        public async Task Delete(int entityId)
-        {
-            Data.Entities.Book entity = repository.FindById(entityId);
-            await repository.Delete(Mapper.Map<Data.Entities.Book>(entity));
-        }
-
-        public async Task Update(Book entity)
-        {
-            repository.Update(Mapper.Map<Data.Entities.Book>(entity));
-        }
-
-        public Book FindById(long id)
-        {
-            Data.Entities.Book book = repository.FindById(id);
-            return book != null ? Mapper.Map<Book>(book) : null;
-        }
-
         public async Task<Book> FindByIdAsync(long id)
         {
             Data.Entities.Book book = await repository.FindByIdAsync(id);
             return book != null ? Mapper.Map<Book>(book) : null;
+        }
+        public async Task AddAsync(Book entity)
+        {
+            await repository.AddAsync(Mapper.Map<Data.Entities.Book>(entity));
+        }
+        public async Task DeleteAsync(Book entity)
+        {
+            await repository.DeleteAsync(Mapper.Map<Data.Entities.Book>(entity));
+        }
+        public async Task DeleteAsync(int entityId)
+        {
+            Data.Entities.Book entity = repository.FindById(entityId);
+            await repository.DeleteAsync(Mapper.Map<Data.Entities.Book>(entity));
+        }
+        public async Task UpdateAsync(Book entity)
+        {
+            await repository.UpdateAsync(Mapper.Map<Data.Entities.Book>(entity));
         }
 
         public IEnumerable<Book> GetAll()
@@ -55,16 +50,27 @@ namespace Library.Core.Services
             return from book in repository.GetAll()
                    select Mapper.Map<Book>(book);
         }
-
-        public async Task<IEnumerable<Book>> GetAllAsync()
+        public Book FindById(long id)
         {
-            return from book in await repository.GetAllAsync()
-                   select Mapper.Map<Book>(book);
+            Data.Entities.Book book = repository.FindById(id);
+            return book != null ? Mapper.Map<Book>(book) : null;
         }
-
-        Task IBookServices.Update(Book entity)
+        public void Add(Book entity)
         {
-            throw new System.NotImplementedException();
+            repository.Add(Mapper.Map<Data.Entities.Book>(entity));
+        }
+        public void Update(Book entity)
+        {
+            repository.Update(Mapper.Map<Data.Entities.Book>(entity));
+        }
+        public void Delete(Book entity)
+        {
+            repository.DeleteAsync(Mapper.Map<Data.Entities.Book>(entity));
+        }
+        public void Delete(int entityId)
+        {
+            Data.Entities.Book entity = repository.FindById(entityId);
+            repository.Delete(Mapper.Map<Data.Entities.Book>(entity));
         }
     }
 }

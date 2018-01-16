@@ -19,43 +19,44 @@ namespace Library.Controllers
 
         // GET api/values
         [HttpGet]
-        public async Task<IEnumerable<Book>> GetAll()
+        public IEnumerable<Book> GetAll()
         {
-            return await bookServices.GetAllAsync();
+            return bookServices.GetAll();
         }
 
         // GET api/books/5
         [HttpGet("{id}")]
-        public async Task<Book> GetById(int id)
+        public Book FindById(int id)
         {
-            return await bookServices.FindByIdAsync(id);
+            return bookServices.FindById(id);
         }
 
         // POST api/values
         [HttpPost]
-        public async Task Post([FromBody]Book book)
+        public async Task CreateAsync([FromBody]Book book)
         {
-            //await bookServices.Add(book);
+            await bookServices.AddAsync(book);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody]Book book)
+        public async Task UpdateAsync(int id, [FromBody]Book book)
         {
-            //await bookServices.Update(book);
+            book.Id = id;
+            await bookServices.UpdateAsync(book);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            //await bookServices.Delete(id);
+            await bookServices.DeleteAsync(id);
         }
 
         [Route("/Error")]
         public ContentResult Error()
         {
-            return Content("La aplicacion no está funcionando correctamente.");
+            return Content("La petición no ha sido procesada.");
         }
     }
 }

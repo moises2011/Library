@@ -5,9 +5,13 @@ namespace Library.Core.Interfaces
 {
     public interface IBookServices : IServices<long, Book>
     {
-        Task Add(Book entity);
-        Task Update(Book entity);
-        Task Delete(Book entity);
-        Task Delete(int entityId);
+        Task AddAsync(Book entity);
+        Task UpdateAsync(Book entity);
+        Task DeleteAsync(Book entity);
+        Task DeleteAsync(int entityId);
+        void Add(Book entity);
+        void Update(Book entity);
+        void Delete(Book entity);
+        void Delete(int entityId);
     }
 }
