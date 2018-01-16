@@ -53,7 +53,7 @@ namespace Library.Controllers
             await bookServices.DeleteAsync(id);
         }
 
-        [Route("/Error")]
+        [HttpGet, Route("/Error")]
         public ContentResult Error()
         {
             return Content("La petición no ha sido procesada.");

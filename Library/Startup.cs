@@ -11,6 +11,7 @@ using Library.Data.IRepositories;
 using System;
 using Library.Core.Services;
 using Library.Core.Interfaces;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Library
 {
@@ -29,6 +30,10 @@ namespace Library
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Version = "v1", Title = "My API", });
+            });
             //Config context
             services.AddDbContext<LibraryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
@@ -79,6 +84,14 @@ namespace Library
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Books", action = "GetAll" });
+            });
+
+            app.UseSwagger();
+
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
         }
     }
