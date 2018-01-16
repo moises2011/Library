@@ -5,16 +5,19 @@ using Library.Core.Interfaces;
 using Library.Data.IRepositories;
 using AutoMapper;
 using System.Linq;
+using Library.Data.Helpers;
 
 namespace Library.Core.Services
 {
     public class BookServices : IBookServices
     {
         private readonly IBookRepository repository;
+        private readonly ILoggerHelper loggerHelper;
 
-        public BookServices(IBookRepository repository)
+        public BookServices(IBookRepository repository, ILoggerHelper _loggerHelper)
         {
             this.repository = repository;
+            loggerHelper = _loggerHelper;
         }
 
         public async Task<IEnumerable<Book>> GetAllAsync()
@@ -47,6 +50,7 @@ namespace Library.Core.Services
 
         public IEnumerable<Book> GetAll()
         {
+            loggerHelper.LogInfo(GetType().FullName, "Libros consultados");
             return from book in repository.GetAll()
                    select Mapper.Map<Book>(book);
         }
