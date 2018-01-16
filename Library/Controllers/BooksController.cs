@@ -26,7 +26,7 @@ namespace Library.Controllers
 
         // GET api/books/5
         [HttpGet("{id}")]
-        public Book FindById(int id)
+        public Book FindById(long id)
         {
             return bookServices.FindById(id);
         }
@@ -40,7 +40,7 @@ namespace Library.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task UpdateAsync(int id, [FromBody]Book book)
+        public async Task UpdateAsync(long id, [FromBody]Book book)
         {
             book.Id = id;
             await bookServices.UpdateAsync(book);
@@ -48,7 +48,7 @@ namespace Library.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(long id)
         {
             await bookServices.DeleteAsync(id);
         }

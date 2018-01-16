@@ -19,17 +19,19 @@ namespace Library.Core.Tests
 
         private Book entity;
         private Dtos.Book entityDto;
-        private List<Book> entities;
+        private List<Book> entitiesWait;
         private List<Dtos.Book> entitiesDto;
 
         [TestInitialize]
         public void Initialize()
         {
+            Mapper.Reset();
             MappingConfig.Initialize();
             bookRepository = Substitute.For<IBookRepository>();
             bookServices = new BookServices(bookRepository);
             entity = new Book { Name = "Book 1", Amount = 1, Price = 1 };
             entityDto = Mapper.Map<Dtos.Book>(entity);
+            entitiesWait = new List<Book>();
         } 
 
         [TestMethod]
@@ -37,7 +39,6 @@ namespace Library.Core.Tests
         {
             //Arrange
             entitiesDto = null;
-            List<Book> entitiesWait = new List<Book>();
             entitiesWait.Add(entity);
             bookRepository.GetAll().Returns(entitiesWait);
             //Act
@@ -51,7 +52,6 @@ namespace Library.Core.Tests
         {
             //Arrange
             entitiesDto = null;
-            List<Book> entitiesWait = new List<Book>();
             entitiesWait.Add(entity);
             bookRepository.GetAllAsync().Returns(entitiesWait);
             //Act
