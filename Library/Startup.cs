@@ -32,7 +32,13 @@ namespace Library
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Version = "v1", Title = "My API", });
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "Microservices API",
+                    Description = "A simple Api project with .NET Core"
+                });
+                //c.IncludeXmlComments(xmlPath);
             });
             //Config context
             services.AddDbContext<LibraryContext>(options =>
