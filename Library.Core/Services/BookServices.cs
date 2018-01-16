@@ -35,7 +35,7 @@ namespace Library.Core.Services
         {
             await repository.DeleteAsync(Mapper.Map<Data.Entities.Book>(entity));
         }
-        public async Task DeleteAsync(int entityId)
+        public async Task DeleteAsync(long entityId)
         {
             Data.Entities.Book entity = repository.FindById(entityId);
             await repository.DeleteAsync(Mapper.Map<Data.Entities.Book>(entity));
@@ -67,7 +67,7 @@ namespace Library.Core.Services
         {
             repository.DeleteAsync(Mapper.Map<Data.Entities.Book>(entity));
         }
-        public void Delete(int entityId)
+        public void Delete(long entityId)
         {
             Data.Entities.Book entity = repository.FindById(entityId);
             repository.Delete(Mapper.Map<Data.Entities.Book>(entity));
