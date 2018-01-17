@@ -47,11 +47,11 @@ namespace Library.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
+       /* [HttpDelete("{id}")]
         public async Task DeleteAsync(long id)
         {
             await bookServices.DeleteAsync(id);
-        }
+        }*/
 
         [HttpGet, Route("/Error")]
         public ContentResult Error()

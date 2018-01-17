@@ -12,6 +12,7 @@ using System;
 using Library.Core.Services;
 using Library.Core.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
+using Library.Data.Repository;
 
 namespace Library
 {

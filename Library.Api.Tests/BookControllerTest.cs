@@ -9,6 +9,7 @@ using Library.Data;
 using Library.Core.Interfaces;
 using Library.Core.Services;
 using Library.Controllers;
+using Library.Data.Repository;
 
 namespace Library.Api.Tests
 {
