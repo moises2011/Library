@@ -18,7 +18,7 @@ namespace Library.Api.Tests
     {
         private IQueryableUnitOfWork unitOfWork;
         private IBookRepository bookRepository;
-        private IBookServices bookService;
+        private IBookService bookService;
         private BooksController bookApi;
 
         private Book entity;
@@ -70,7 +70,7 @@ namespace Library.Api.Tests
             UnitOfWorkTest<T> testExtensions = new UnitOfWorkTest<T>();
             unitOfWork = testExtensions.SetQueryableUnitOfWork(entities);
             bookRepository = new BookRepository(unitOfWork);
-            bookService = new BookServices(bookRepository);
+            bookService = new BookService(bookRepository);
             return new BooksController(bookService);
         }
 
@@ -79,7 +79,7 @@ namespace Library.Api.Tests
             UnitOfWorkTest<T> testExtensions = new UnitOfWorkTest<T>();
             unitOfWork = testExtensions.SetQueryableUnitOfWork(entity);
             bookRepository = new BookRepository(unitOfWork);
-            bookService = new BookServices(bookRepository);
+            bookService = new BookService(bookRepository);
             return new BooksController(bookService);
         }
     }

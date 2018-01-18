@@ -10,9 +10,9 @@ namespace Library.Controllers
     [Route("api/[controller]")]
     public class BooksController : Controller
     {
-        private readonly IBookServices bookServices;
+        private readonly IBookService bookServices;
 
-        public BooksController(IBookServices _bookServices)
+        public BooksController(IBookService _bookServices)
         {
             bookServices = _bookServices;
         }
@@ -46,12 +46,19 @@ namespace Library.Controllers
             await bookServices.UpdateAsync(book);
         }
 
-        // DELETE api/values/5
-       /* [HttpDelete("{id}")]
-        public async Task DeleteAsync(long id)
+        // PUT api/values
+        [HttpPut]
+        public async Task BulkUpdSertAsync(long id, [FromBody]List<Book> books)
         {
-            await bookServices.DeleteAsync(id);
-        }*/
+            await bookServices.BulkUpsertAsync(books);
+        }
+
+        // DELETE api/values/5
+        /* [HttpDelete("{id}")]
+         public async Task DeleteAsync(long id)
+         {
+             await bookServices.DeleteAsync(id);
+         }*/
 
         [HttpGet, Route("/Error")]
         public ContentResult Error()

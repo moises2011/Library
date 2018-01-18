@@ -95,5 +95,9 @@ namespace Library.Data
             //    throw;
             //}
         }
+        public void SetAutoDetectChanges(bool autoDetect)
+        {
+            this.ChangeTracker.AutoDetectChangesEnabled = autoDetect;
+        }
     }
 }

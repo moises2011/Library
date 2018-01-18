@@ -62,7 +62,7 @@ namespace Library
 
             // use and configure Autofac
             builder.RegisterType<LibraryContext>().As<IQueryableUnitOfWork>().WithParameter("schema", Configuration.GetConnectionString("SchemaName"));
-            builder.RegisterType<BookServices>().As<IBookServices>();
+            builder.RegisterType<BookService>().As<IBookService>();
             builder.RegisterType<BookRepository>().As<IBookRepository>();
             // build the Autofac container
             ApplicationContainer = builder.Build();

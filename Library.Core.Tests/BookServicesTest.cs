@@ -15,7 +15,7 @@ namespace Library.Core.Tests
     public class BookServicesTest
     {
         private IBookRepository bookRepository;
-        private IBookServices bookServices;
+        private IBookService bookServices;
 
         private Book entity;
         private Dtos.Book entityDto;
@@ -28,7 +28,7 @@ namespace Library.Core.Tests
             Mapper.Reset();
             MappingConfig.Initialize();
             bookRepository = Substitute.For<IBookRepository>();
-            bookServices = new BookServices(bookRepository);
+            bookServices = new BookService(bookRepository);
             entity = new Book { Name = "Book 1", Amount = 1, Price = 1 };
             entityDto = Mapper.Map<Dtos.Book>(entity);
             entitiesWait = new List<Book>();

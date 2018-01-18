@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Library.Data.IRepositories
 {
-    public class ERepository<TId, TEntity> : IERepository<TId, TEntity> where TId : struct where TEntity : EntityBase 
+    public class ERepository<TId, TEntity> : IERepository<TId, TEntity> 
+        where TId : struct 
+        where TEntity : EntityBase 
     {
         private readonly IQueryableUnitOfWork unitOfWork;
 
@@ -92,25 +94,26 @@ namespace Library.Data.IRepositories
                 await DeleteAsync(address);
             }
         }
-        public async Task BulkInsertAsync(IEnumerable<TEntity> entity)
-        {
-            if (entity != null && entity.Any())
-            {
-                await unitOfWork.GetSet<TEntity>().AddRangeAsync(entity);
-                await unitOfWork.CommitAsync();
-            }
-        }
         public async Task BulkUpsertAsync(IEnumerable<TEntity> entity)
         {
             try
             {
                 if (entity != null && entity.Any())
                 {
-                    //unitOfWork.SetAutoDetectChanges(false);
+                    unitOfWork.SetAutoDetectChanges(true);
 
-                    foreach (var item in entity)
+                    foreach (TEntity item in entity)
                     {
-                        unitOfWork.GetSet<TEntity>().UpdateRange(entity);
+                        await unitOfWork.GetSet<TEntity>().AddAsync(item);
+                        //if (item.Id > 0 && unitOfWork.GetSet<TEntity>().Any(info =>
+                        //        info.Id == item.Id))
+                        //{
+                        //    unitOfWork.GetSet<TEntity>().Update(item);
+                        //}
+                        //else
+                        //{
+                        //    await unitOfWork.GetSet<TEntity>().AddAsync(item);
+                        //}
                     }
 
                     await unitOfWork.CommitAsync();

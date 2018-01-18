@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Library.Data.IRepositories
 {
-    public interface IERepository<TId, TEntity> : IDisposable where TId : struct where TEntity : EntityBase
+    public interface IERepository<TId, TEntity> : IDisposable 
+        where TId : struct 
+        where TEntity : EntityBase
     {
         IQueryableUnitOfWork UnitOfWork { get; }
         Task<IEnumerable<TEntity>> GetAllAsync();
@@ -20,6 +22,7 @@ namespace Library.Data.IRepositories
         Task UpdateAsync(TEntity entity);
         Task DeleteAsync(TEntity entity);
         Task DeleteAsync(TId id);
+        Task BulkUpsertAsync(IEnumerable<TEntity> entity);
         void Add(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);

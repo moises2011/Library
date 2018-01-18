@@ -10,5 +10,6 @@ namespace Library.Data
         DbSet<Entity> GetSet<Entity>() where Entity : EntityBase;
         void Commit();
         Task CommitAsync();
+        void SetAutoDetectChanges(bool autoDetect);
     }
 }
