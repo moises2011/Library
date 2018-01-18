@@ -7,10 +7,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Library.Data
 {
-    public class LibraryContext : DbContext, IQueryableUnitOfWork
+    public class Context : DbContext, IQueryableUnitOfWork
     {
         private readonly string Schema;
-        public LibraryContext(DbContextOptions<LibraryContext> options, string schema) : base(options)
+        public Context(DbContextOptions<Context> options, string schema) : base(options)
         {
             Schema = schema;
         }

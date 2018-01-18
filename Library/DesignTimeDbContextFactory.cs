@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<LibraryContext>
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Context>
     {
-        public LibraryContext CreateDbContext(string[] args)
+        public Context CreateDbContext(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var builder = new DbContextOptionsBuilder<LibraryContext>();
+            var builder = new DbContextOptionsBuilder<Context>();
             var connectionString = configuration.GetConnectionString("LibraryConnection");
             builder.UseSqlServer(connectionString);
-            return new LibraryContext(builder.Options, configuration.GetConnectionString("SchemaName"));
+            return new Context(builder.Options, configuration.GetConnectionString("SchemaName"));
         }
     }
 }

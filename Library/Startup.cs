@@ -42,7 +42,7 @@ namespace Library
                 //c.IncludeXmlComments(xmlPath);
             });
             //Config context
-            services.AddDbContext<LibraryContext>(options =>
+            services.AddDbContext<Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
             //IoC
             CreateDependencyInjection(services);
@@ -61,7 +61,7 @@ namespace Library
             builder.Populate(services);
 
             // use and configure Autofac
-            builder.RegisterType<LibraryContext>().As<IQueryableUnitOfWork>().WithParameter("schema", Configuration.GetConnectionString("SchemaName"));
+            builder.RegisterType<Context>().As<IQueryableUnitOfWork>().WithParameter("schema", Configuration.GetConnectionString("SchemaName"));
             builder.RegisterType<BookService>().As<IBookService>();
             builder.RegisterType<BookRepository>().As<IBookRepository>();
             // build the Autofac container
