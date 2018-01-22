@@ -15,9 +15,9 @@ namespace Library.Data
             Schema = schema;
         }
 
-        public DbSet<Entity> GetSet<Entity>() where Entity : EntityBase
+        public DbSet<TEntity> GetSet<TEntity, TId>() where TId : struct where TEntity : EntityBase<TId>
         {
-            return Set<Entity>();
+            return Set<TEntity>();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

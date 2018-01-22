@@ -1,5 +1,4 @@
-﻿using Library.Data;
-using Library.Data.Entities;
+﻿using Library.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace Library.Data.IRepositories
 {
     public interface IERepository<TId, TEntity> : IDisposable 
         where TId : struct 
-        where TEntity : EntityBase
+        where TEntity : EntityBase<TId>
     {
         IQueryableUnitOfWork UnitOfWork { get; }
         Task<IEnumerable<TEntity>> GetAllAsync();

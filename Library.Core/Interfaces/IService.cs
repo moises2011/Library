@@ -6,7 +6,7 @@ namespace Library.Core.Interfaces
 {
     public interface IService<TId, TEntity, TEntityDto>
          where TId : struct
-         where TEntityDto : EntityBase
+         where TEntityDto : EntityBase<TId>
     {
         Task<IEnumerable<TEntityDto>> GetAllAsync();
         IEnumerable<TEntityDto> GetAll();

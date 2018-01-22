@@ -43,7 +43,9 @@ namespace Library.Controllers
         {
             book.Id = id;
             await bookServices.UpdateAsync(book);
-        }// POST api/values
+        }
+        
+        // POST api/values
         [HttpDelete("{id}")]
         public async Task DeleteAsync(int id)
         {

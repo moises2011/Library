@@ -11,8 +11,8 @@ namespace Library.Core.Services
 {
     public class Service<TId, TEntity, TEntityDto> : IService<TId, TEntity, TEntityDto>
         where TId : struct
-        where TEntityDto : EntityBase
-        where TEntity : Data.Entities.EntityBase
+        where TEntityDto : EntityBase<TId>
+        where TEntity : Data.Entities.EntityBase<TId>
     {
         private readonly IERepository<TId, TEntity> repository;
         private readonly ILoggerHelper loggerHelper;

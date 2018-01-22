@@ -7,7 +7,7 @@ namespace Library.Data
 {
     public interface IQueryableUnitOfWork : IDisposable
     {
-        DbSet<Entity> GetSet<Entity>() where Entity : EntityBase;
+        DbSet<TEntity> GetSet<TEntity, TId>() where TId : struct where TEntity : EntityBase<TId>;
         void Commit();
         Task CommitAsync();
         void SetAutoDetectChanges(bool autoDetect);

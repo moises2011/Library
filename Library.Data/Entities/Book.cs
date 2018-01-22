@@ -1,6 +1,6 @@
 ﻿namespace Library.Data.Entities
 {
-    public class Book : EntityBase
+    public class Book : EntityBase<long>
     {
         public string Name { get; set; }
 

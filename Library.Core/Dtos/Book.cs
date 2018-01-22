@@ -1,6 +1,6 @@
 ﻿namespace Library.Core.Dtos
 {
-    public class Book : EntityBase
+    public class Book : EntityBase<long>
     {
         public string Name { get; set; }
 
