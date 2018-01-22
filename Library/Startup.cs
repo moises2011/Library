@@ -13,6 +13,7 @@ using Library.Core.Services;
 using Library.Core.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 using Library.Data.Repository;
+using Library.Data.Helpers;
 
 namespace Library
 {
@@ -62,6 +63,7 @@ namespace Library
 
             // use and configure Autofac
             builder.RegisterType<Context>().As<IQueryableUnitOfWork>().WithParameter("schema", Configuration.GetConnectionString("SchemaName"));
+            builder.RegisterType<LoggerHelper>().As<ILoggerHelper>();
             builder.RegisterType<BookService>().As<IBookService>();
             builder.RegisterType<BookRepository>().As<IBookRepository>();
             // build the Autofac container
