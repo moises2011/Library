@@ -1,17 +1,17 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Library.Data.Helpers
 {
     public class LoggerHelper : ILoggerHelper
     {
-        private static readonly log4net.ILog logAppender = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public void LogError(string metodo, Exception e)
+       public void LogError(string metodo, Exception e)
         {
-            logAppender.Error(metodo + " >> [" + e + "]");
+            Trace.TraceError(metodo + " >> [" + e + "]");
         }
         public void LogInfo(string metodo, string message)
         {
-            logAppender.Info(metodo + " >> [" + message+"]");
+            Trace.TraceInformation(metodo + " >> [" + message+"]");
         }
     }
 }

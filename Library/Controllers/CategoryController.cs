@@ -7,54 +7,54 @@ using Library.Core.Dtos;
 namespace Library.Controllers
 {
     [Route("api/[controller]")]
-    public class BooksController : Controller
+    public class CategoryController : Controller
     {
-        private readonly IBookService bookServices;
+        private readonly ICategoryService categoryServices;
 
-        public BooksController(IBookService _bookServices)
+        public CategoryController(ICategoryService _categoryServices)
         {
-            bookServices = _bookServices;
+            categoryServices = _categoryServices;
         }
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<Book> GetAll()
+        public IEnumerable<Category> GetAll()
         {
-            return bookServices.GetAll();
+            return categoryServices.GetAll();
         }
 
         // GET api/books/5
         [HttpGet("{id}")]
-        public Book FindById(long id)
+        public Category FindById(long id)
         {
-            return bookServices.FindById(id);
+            return categoryServices.FindById(id);
         }
 
         // POST api/values
         [HttpPost]
-        public async Task CreateAsync([FromBody]Book book)
+        public async Task CreateAsync([FromBody]Category book)
         {
-            await bookServices.AddAsync(book);
+            await categoryServices.AddAsync(book);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task UpdateAsync(long id, [FromBody]Book book)
+        public async Task UpdateAsync(long id, [FromBody]Category book)
         {
             book.Id = id;
-            await bookServices.UpdateAsync(book);
+            await categoryServices.UpdateAsync(book);
         }// POST api/values
         [HttpDelete("{id}")]
         public async Task DeleteAsync(int id)
         {
-            await bookServices.DeleteAsync(id);
+            await categoryServices.DeleteAsync(id);
         }
 
         // PUT api/values
         [HttpPut]
-        public async Task BulkUpdSertAsync(long id, [FromBody]List<Book> books)
+        public async Task BulkUpdSertAsync(long id, [FromBody]List<Category> books)
         {
-            await bookServices.BulkUpsertAsync(books);
+            await categoryServices.BulkUpsertAsync(books);
         }
 
         [HttpOptions("{id}")]

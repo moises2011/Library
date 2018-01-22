@@ -9,6 +9,8 @@ namespace Library.Core
         {
             CreateMap<Book, Dtos.Book>();
             CreateMap<Dtos.Book, Book>();
+            CreateMap<Category, Dtos.Category>();
+            CreateMap<Dtos.Category, Category>();
         }
     }
 }

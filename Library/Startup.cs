@@ -42,6 +42,8 @@ namespace Library
                 });
                 //c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddApplicationInsightsTelemetry(Configuration);
             //Config context
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
@@ -66,6 +68,8 @@ namespace Library
             builder.RegisterType<LoggerHelper>().As<ILoggerHelper>();
             builder.RegisterType<BookService>().As<IBookService>();
             builder.RegisterType<BookRepository>().As<IBookRepository>();
+            builder.RegisterType<CategoryService>().As<ICategoryService>();
+            builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
             // build the Autofac container
             ApplicationContainer = builder.Build();
         }

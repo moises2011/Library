@@ -28,6 +28,7 @@ namespace Library.Data
             }
             modelBuilder.HasDefaultSchema(Schema);
             modelBuilder.Entity<Book>().ToTable("Book");
+            modelBuilder.Entity<Category>().ToTable("Category");
 
             base.OnModelCreating(modelBuilder);
         }

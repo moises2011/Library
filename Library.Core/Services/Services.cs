@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Library.Core.Dtos;
 using Library.Core.Interfaces;
+using Library.Data.Helpers;
 using Library.Data.IRepositories;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,17 @@ namespace Library.Core.Services
         where TEntity : Data.Entities.EntityBase
     {
         private readonly IERepository<TId, TEntity> repository;
+        private readonly ILoggerHelper loggerHelper;
 
-        public Service(IERepository<TId, TEntity> repository)
+        public Service(IERepository<TId, TEntity> repository, ILoggerHelper loggerHelper)
         {
             this.repository = repository;
+            this.loggerHelper = loggerHelper;
         }
 
         public async Task<IEnumerable<TEntityDto>> GetAllAsync()
         {
+            loggerHelper.LogInfo(GetType().FullName, "Entidad consultada");
             return from book in await repository.GetAllAsync()
                    select Mapper.Map<TEntityDto>(book);
         }
@@ -53,6 +57,7 @@ namespace Library.Core.Services
         }
         public IEnumerable<TEntityDto> GetAll()
         {
+            loggerHelper.LogInfo(GetType().FullName, "Entidad consultada");
             return from book in repository.GetAll()
                    select Mapper.Map<TEntityDto>(book);
         }
