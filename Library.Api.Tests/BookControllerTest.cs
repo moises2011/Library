@@ -8,8 +8,8 @@ using AutoMapper;
 using Library.Data;
 using Library.Core.Interfaces;
 using Library.Core.Services;
-using Library.Controllers;
 using Library.Data.Repository;
+using Library.Api.Controllers;
 
 namespace Library.Api.Tests
 {

@@ -5,7 +5,9 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
-	<OutputType>Exe</OutputType>		
+	<OutputType>Exe</OutputType>
+	<AssemblyName>Library.Api</AssemblyName>
+	<RootNamespace>Library.Api</RootNamespace>		
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

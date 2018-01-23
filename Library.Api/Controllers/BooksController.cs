@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Library.Core.Interfaces;
 using Library.Core.Dtos;
 
-namespace Library.Controllers
+namespace Library.Api.Controllers
 {
     [Route("api/[controller]")]
     public class BooksController : Controller

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "Library\Library.csproj", "{E357A97C-DA3A-4425-A42F-CA78CF62C608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Api", "Library.Api\Library.Api.csproj", "{E357A97C-DA3A-4425-A42F-CA78CF62C608}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B0DEFBA9-1F75-4F03-8E6C-B688C87D6199} = {B0DEFBA9-1F75-4F03-8E6C-B688C87D6199}
 		{F1FB8FC9-4A7E-4ED0-A526-5F61D2BDB195} = {F1FB8FC9-4A7E-4ED0-A526-5F61D2BDB195}
