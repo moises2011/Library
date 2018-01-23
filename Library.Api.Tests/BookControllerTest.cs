@@ -44,7 +44,7 @@ namespace Library.Api.Tests
             entitiesDto = null;
             entitiesWait.Add(entity);
             entitiesWait.Add(entity);
-            bookApi = SetController<Book>(entitiesWait);
+            bookApi = SetController<Book, long>(entitiesWait);
             //Act
             entitiesDto = bookApi.GetAll().ToList();
             //Assert
@@ -58,25 +58,25 @@ namespace Library.Api.Tests
             entityDto = null;
             entity.Id = 1;
             entitiesWait.Add(entity);
-            bookApi = SetController<Book>(entity);
+            bookApi = SetController<Book, long>(entity);
             //Act
             entityDto = bookApi.FindById(entity.Id);
             //Assert
             Assert.AreEqual(entityDto.Id, entity.Id);
         }
 
-        public BooksController SetController<T>(List<T> entities) where T : EntityBase
+        public BooksController SetController<T, TId>(List<T> entities) where TId : struct where T : EntityBase<TId>
         {
-            UnitOfWorkTest<T> testExtensions = new UnitOfWorkTest<T>();
+            UnitOfWorkTest<T, TId> testExtensions = new UnitOfWorkTest<T, TId>();
             unitOfWork = testExtensions.SetQueryableUnitOfWork(entities);
             bookRepository = new BookRepository(unitOfWork);
             bookService = new BookService(bookRepository);
             return new BooksController(bookService);
         }
 
-        public BooksController SetController<T>(T entity) where T : EntityBase
+        public BooksController SetController<T, TId>(T entity) where TId : struct where T : EntityBase<TId>
         {
-            UnitOfWorkTest<T> testExtensions = new UnitOfWorkTest<T>();
+            UnitOfWorkTest<T, TId> testExtensions = new UnitOfWorkTest<T, TId>();
             unitOfWork = testExtensions.SetQueryableUnitOfWork(entity);
             bookRepository = new BookRepository(unitOfWork);
             bookService = new BookService(bookRepository);

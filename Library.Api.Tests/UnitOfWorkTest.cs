@@ -9,7 +9,7 @@ using System.Linq;
 namespace Library.Api.Tests
 {
     [ExcludeFromCodeCoverage]
-    public class UnitOfWorkTest<T> where T : EntityBase
+    public class UnitOfWorkTest<T, TId> where TId : struct where T : EntityBase<TId>
     {
         public IQueryableUnitOfWork SetQueryableUnitOfWork(List<T> model)
         {
@@ -26,7 +26,7 @@ namespace Library.Api.Tests
             ((IQueryable<T>)dbSet).ElementType.Returns(asQuerable.ElementType);
             ((IQueryable<T>)dbSet).GetEnumerator().Returns(asQuerable.GetEnumerator());
 
-            queryableUnitOfWork.GetSet<T>().Returns(dbSet);
+            queryableUnitOfWork.GetSet<T, TId>().Returns(dbSet);
             return queryableUnitOfWork;
         }
 
@@ -46,7 +46,7 @@ namespace Library.Api.Tests
             ((IQueryable<T>)dbSet).ElementType.Returns(asQuerable.ElementType);
             ((IQueryable<T>)dbSet).GetEnumerator().Returns(asQuerable.GetEnumerator());
 
-            queryableUnitOfWork.GetSet<T>().Returns(dbSet);
+            queryableUnitOfWork.GetSet<T, TId>().Returns(dbSet);
             dbSet.Find(Arg.Any<long>()).Returns(model);
 
             return queryableUnitOfWork;
